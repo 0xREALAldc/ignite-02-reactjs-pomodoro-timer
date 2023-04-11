@@ -15,6 +15,7 @@ export const GlobalStyle = createGlobalStyle`
   body {
     background: ${(props) => props.theme['gray-900']};
     color: ${(props) => props.theme['gray-300']};
+    -webkit-font-smoothing: antialiased;
   }
   /* to facilitate the use of REM metric unit, then I know that 0.1 REM is 1px */
   html {
