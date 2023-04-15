@@ -1,5 +1,8 @@
 import { Play } from 'phosphor-react'
 import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+// we only use this syntax 'import * as ...' when the library that we're using doesn't have a 'export default'
+import * as zod from 'zod'
 
 import {
   CountdownContainer,
@@ -11,14 +14,25 @@ import {
   TaskInput,
 } from './styles'
 
+const newCycleFormValidationSchema = zod.object({
+  task: zod.string().min(1, 'Please fill the description of the task'),
+  minutesAmount: zod
+    .number()
+    .min(5, 'The cycle must be greater than 5 minutes')
+    .max(60, 'The cycle must be less or equal to 60 minutes'),
+})
+
 export function Home() {
-  // register : is a method that will add a input to our form, that is created with useForm
-  const { register, handleSubmit, watch } = useForm()
+  const { register, handleSubmit, watch, formState } = useForm({
+    resolver: zodResolver(newCycleFormValidationSchema),
+  })
 
   // the parameter 'data' are the data from the fields of our form
   function handleCreateNewCycle(data: any) {
     console.log(data)
   }
+
+  console.log(formState.errors)
 
   const task = watch('task')
   const isSubmitDisabled = !task
