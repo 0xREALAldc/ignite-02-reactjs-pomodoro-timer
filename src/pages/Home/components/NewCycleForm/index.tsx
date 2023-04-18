@@ -1,28 +1,12 @@
+import { useContext } from 'react'
+import { useFormContext } from 'react-hook-form'
+import { CyclesContext } from '../..'
+
 import { FormContainer, MinutesAmountInput, TaskInput } from './styles'
-// we only use this syntax 'import * as ...' when the library that we're using doesn't have a 'export default'
-import * as zod from 'zod'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-
-const newCycleFormValidationSchema = zod.object({
-  task: zod.string().min(1, 'Please fill the description of the task'),
-  minutesAmount: zod
-    .number()
-    .min(1, 'The cycle must be greater than 5 minutes')
-    .max(60, 'The cycle must be less or equal to 60 minutes'),
-})
-
-type NewCycleFormData = zod.infer<typeof newCycleFormValidationSchema>
 
 export function NewCycleForm() {
-  const { register, handleSubmit, watch, reset /*, formState */ } =
-    useForm<NewCycleFormData>({
-      resolver: zodResolver(newCycleFormValidationSchema),
-      defaultValues: {
-        task: '',
-        minutesAmount: 0,
-      },
-    })
+  const { activeCycle } = useContext(CyclesContext)
+  const { register } = useFormContext()
 
   return (
     <FormContainer>
