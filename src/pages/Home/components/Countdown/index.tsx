@@ -11,7 +11,6 @@ export function Countdown() {
     markCurrentCycleAsFinished,
     amountSecondsPassed,
     setSecondsPassed,
-    setCycleToNull,
   } = useContext(CyclesContext)
 
   const totalSeconds = activeCycle ? activeCycle.minutesAmount * 60 : 0
@@ -44,7 +43,6 @@ export function Countdown() {
           markCurrentCycleAsFinished()
 
           setSecondsPassed(totalSeconds)
-          setCycleToNull() // diego didn't put this line yet, this is the one that makes the interval really stop
           clearInterval(interval)
         } else {
           setSecondsPassed(secondsDifference)
@@ -62,7 +60,6 @@ export function Countdown() {
     activeCycleId,
     markCurrentCycleAsFinished,
     setSecondsPassed,
-    setCycleToNull,
   ])
 
   return (

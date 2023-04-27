@@ -45,8 +45,6 @@ export function Home() {
 
   // console.log(formState.errors)
 
-  console.log(cycles)
-
   const task = watch('task')
   const isSubmitDisabled = !task
 
